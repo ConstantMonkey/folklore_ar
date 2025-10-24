@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Folk Culture WebAR</title>
+    <link rel="stylesheet" href="css_style.css">
+
+    <!-- A-Frame & AR.js -->
+    <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js@3.4.3/aframe/build/aframe-ar.js"></script>
+  </head>
+
+  <body style="margin: 0; overflow: hidden;">
+    <a-scene embedded arjs>
+      <!-- Marker mẫu (hiro marker) -->
+      <a-marker preset="hiro">
+        <!-- Vật thể 3D (vd: hộp) -->
+        <a-box position="0 0.5 0" color="tomato" rotation="0 45 0"></a-box>
+      </a-marker>
+
+      <!-- Camera -->
+      <a-entity camera></a-entity>
+    </a-scene>
+    <script src="main.js"></script>
+  </body>
+</html>
