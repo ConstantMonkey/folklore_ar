@@ -1,27 +1,25 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>Folk Culture WebAR</title>
-    <link rel="stylesheet" href="css_style.css">
+<head>
+  <meta charset="utf-8" />
+  <title>MindAR Test</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script src="https://cdn.jsdelivr.net/npm/aframe@1.4.0/dist/aframe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.1.4/dist/mindar-image-aframe.prod.js"></script>
+</head>
+<body style="margin:0; overflow:hidden;">
+  <a-scene
+    mindar-image="imageTargetSrc: ./nunanunong.mind; autoStart: true;"
+    embedded
+    vr-mode-ui="enabled: false"
+    device-orientation-permission-ui="enabled: true"
+  >
+    <a-camera position="0 0 0" look-controls="false"></a-camera>
 
-    <!-- A-Frame & AR.js -->
-    <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js@3.4.3/aframe/build/aframe-ar.js"></script>
-  </head>
-
-  <body style="margin: 0; overflow: hidden;">
-    <a-scene embedded arjs>
-      <!-- Marker mẫu (hiro marker) -->
-      <a-marker preset="hiro">
-        <!-- Vật thể 3D (vd: hộp) -->
-        <a-box position="0 0.5 0" color="tomato" rotation="0 45 0"></a-box>
-      </a-marker>
-
-      <!-- Camera -->
-      <a-entity camera></a-entity>
-    </a-scene>
-    <script src="main.js"></script>
-  </body>
+    <!-- đơn giản: hiện hộp vàng khi detect -->
+    <a-entity mindar-image-target="targetIndex: 0">
+      <a-box color="yellow" depth="0.2" height="0.2" width="0.2" position="0 0.1 0"></a-box>
+    </a-entity>
+  </a-scene>
+</body>
 </html>
-
