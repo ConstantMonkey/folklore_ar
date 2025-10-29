@@ -2,20 +2,17 @@
 <html lang="vi">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
     <title>Folk Culture WebAR</title>
 
-    <!-- A-Frame + MindAR -->
     <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.3/dist/mindar-image-aframe.prod.js"></script>
 
     <style>
       html, body {
-        margin: 0;
-        padding: 0;
-        overflow: hidden;
-        height: 100%;
         width: 100%;
+        height: 100%;
+        margin: 0;
+        overflow: hidden;
       }
       a-scene {
         position: fixed;
@@ -29,7 +26,7 @@
 
   <body>
     <a-scene
-      mindar-image="imageTargetSrc: https://raw.githubusercontent.com/ConstantMonkey/folklore_ar/main/nunanunong.minddata; autoStart: true;"
+      mindar-image="imageTargetSrc: ./nunanunong.mind; autoStart: true;"
       color-space="sRGB"
       embedded
       renderer="colorManagement: true, physicallyCorrectLights"
@@ -39,11 +36,10 @@
       <a-assets>
         <video
           id="folkloreVideo"
-          src="https://raw.githubusercontent.com/ConstantMonkey/folklore_ar/main/nunanunongmotiion.mp4"
+          src="https://cdn.jsdelivr.net/gh/ConstantMonkey/folklore_ar@main/nunanunongmotiion.mp4"
           preload="auto"
           loop
           playsinline
-          webkit-playsinline
           crossorigin="anonymous"
         ></video>
       </a-assets>
@@ -78,11 +74,13 @@
           console.log("👋 Marker lost!");
           video.pause();
         });
+      });
 
-        document.body.addEventListener("click", () => {
-          video.muted = false;
-          video.play();
-        });
+      // Bắt buộc click để phát video trên mobile
+      window.addEventListener("click", () => {
+        const v = document.querySelector("#folkloreVideo");
+        v.muted = false;
+        v.play().catch(err => console.log("Không thể phát video:", err));
       });
     </script>
   </body>
