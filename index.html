@@ -26,7 +26,7 @@
 
   <body>
     <a-scene
-      mindar-image="imageTargetSrc: ./nunanunong.mind; autoStart: true;"
+      mindar-image="imageTargetSrc: https://hiukim.github.io/mind-ar-js-doc/assets/targets/musicband.mind; autoStart: true;"
       color-space="sRGB"
       embedded
       renderer="colorManagement: true, physicallyCorrectLights"
@@ -55,28 +55,30 @@
 
     <script>
       document.addEventListener("DOMContentLoaded", () => {
+        const scene = document.querySelector('a-scene');
         const video = document.querySelector("#folkloreVideo");
-        const target = document.querySelector("[mindar-image-target]");
     
-        target.addEventListener("targetFound", () => {
-          console.log("🎯 Marker found!");
+        // Log MindAR
+        scene.addEventListener('arReady', () => console.log('✅ MindAR ready'));
+        scene.addEventListener('arError', (e) => console.error('❌ AR Error:', e.detail.error));
+    
+        const target = document.querySelector('[mindar-image-target]');
+        target.addEventListener('targetFound', () => {
+          console.log('🎯 Found!');
           video.play();
         });
+        target.addEventListener('targetLost', () => console.log('👋 Lost!'));
     
-        target.addEventListener("targetLost", () => {
-          console.log("👋 Marker lost!");
-          video.pause();
-        });
-    
-        // Cấp quyền phát video trên mobile
-        document.body.addEventListener("click", () => {
+        // Unmute sau click
+        window.addEventListener("click", () => {
           video.muted = false;
-          video.play().catch(err => console.log("Video error:", err));
-        });
+          video.play();
+        }, { once: true });
       });
     </script>
   </body>
 </html>
+
 
 
 
