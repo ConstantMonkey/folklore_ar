@@ -2,6 +2,7 @@
 <html lang="vi">
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
     <title>Folk Culture WebAR</title>
 
     <!-- A-Frame + MindAR -->
@@ -9,9 +10,19 @@
     <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.3/dist/mindar-image-aframe.prod.js"></script>
 
     <style>
-      body {
+      html, body {
         margin: 0;
+        padding: 0;
         overflow: hidden;
+        height: 100%;
+        width: 100%;
+      }
+      a-scene {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
       }
     </style>
   </head>
@@ -25,7 +36,6 @@
       vr-mode-ui="enabled: false"
       device-orientation-permission-ui="enabled: true"
     >
-      <!-- Video asset -->
       <a-assets>
         <video
           id="folkloreVideo"
@@ -33,15 +43,13 @@
           preload="auto"
           loop
           playsinline
-          crossorigin="anonymous"
           webkit-playsinline
+          crossorigin="anonymous"
         ></video>
       </a-assets>
 
-      <!-- Camera -->
       <a-camera position="0 0 0" look-controls="false"></a-camera>
 
-      <!-- Khi nhận được marker -->
       <a-entity mindar-image-target="targetIndex: 0">
         <a-video
           src="#folkloreVideo"
@@ -71,7 +79,6 @@
           video.pause();
         });
 
-        // Bắt buộc click để cấp quyền phát video (mobile)
         document.body.addEventListener("click", () => {
           video.muted = false;
           video.play();
