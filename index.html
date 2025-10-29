@@ -1,28 +1,46 @@
 <!DOCTYPE html>
-<html>
+<html lang="vi">
   <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <title>Folk Culture WebAR</title>
+
+    <!-- A-Frame + MindAR -->
     <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js@3.4.3/aframe/build/aframe-ar.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.3/dist/mindar-image-aframe.prod.js"></script>
+
+    <style>
+      body {
+        margin: 0;
+        overflow: hidden;
+      }
+    </style>
   </head>
 
-  <body style="margin: 0; overflow: hidden;">
+  <body>
     <a-scene
       mindar-image="imageTargetSrc: ./targets.mind; autoStart: true;"
       color-space="sRGB"
       embedded
       renderer="colorManagement: true, physicallyCorrectLights"
       vr-mode-ui="enabled: false"
-      device-orientation-permission-ui="enabled: false"
+      device-orientation-permission-ui="enabled: true"
     >
-      <a-assets timeout="10000">
-        <video id="folkloreVideo" src="https://cdn.jsdelivr.net/gh/ConstantMonkey/folklore_ar@main/nunanunongmotiion.mp4" autoplay loop muted playsinline crossorigin="anonymous"></video>
+      <!-- Video asset -->
+      <a-assets>
+        <video
+          id="folkloreVideo"
+          src="https://cdn.jsdelivr.net/gh/ConstantMonkey/folklore_ar@main/nunanunongmotiion.mp4"
+          preload="auto"
+          loop
+          playsinline
+          crossorigin="anonymous"
+        ></video>
       </a-assets>
 
-      <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+      <!-- Camera -->
+      <a-camera position="0 0 0" look-controls="false"></a-camera>
 
+      <!-- Khi nhận được marker -->
       <a-entity mindar-image-target="targetIndex: 0">
         <a-video
           src="#folkloreVideo"
@@ -30,10 +48,34 @@
           height="0.56"
           position="0 0 0"
           rotation="0 0 0"
+          visible="false"
+          event-set__show="_event: targetFound; visible: true"
+          event-set__hide="_event: targetLost; visible: false"
         ></a-video>
       </a-entity>
     </a-scene>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const video = document.querySelector("#folkloreVideo");
+        const target = document.querySelector("[mindar-image-target]");
+
+        target.addEventListener("targetFound", () => {
+          console.log("🎯 Marker found!");
+          video.play();
+        });
+
+        target.addEventListener("targetLost", () => {
+          console.log("👋 Marker lost!");
+          video.pause();
+        });
+
+        // Bắt buộc click để cấp quyền phát video (mobile)
+        document.body.addEventListener("click", () => {
+          video.muted = false;
+          video.play();
+        });
+      });
+    </script>
   </body>
 </html>
-
-
