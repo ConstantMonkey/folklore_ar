@@ -31,8 +31,10 @@
           height="0.56"
           position="0 0 0"
           rotation="-90 0 0"
-          material="src: #myVideo"
-          geometry="primitive: plane"
+          scale="1 1 1"
+          visible="false"
+          event-set__show="_event: targetFound; visible: true"
+          event-set__hide="_event: targetLost; visible: false"
           autoplay loop
         ></a-video>
       </a-entity>
@@ -40,23 +42,21 @@
 
     <script>
       document.addEventListener("DOMContentLoaded", () => {
-        console.log("JS loaded");
         const video = document.querySelector("#myVideo");
         const target = document.querySelector("[mindar-image-target]");
 
         target.addEventListener("targetFound", () => {
-          console.log("Target found! Playing video...");
+          console.log("Found! Play video");
           video.play();
         });
 
         target.addEventListener("targetLost", () => {
-          console.log("Target lost!");
+          console.log("Lost!");
           video.pause();
         });
 
         window.addEventListener("click", () => {
           video.muted = false;
-          video.play();
         }, { once: true });
       });
     </script>
