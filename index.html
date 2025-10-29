@@ -38,6 +38,8 @@
           id="folkloreVideo"
           src="https://cdn.jsdelivr.net/gh/ConstantMonkey/folklore_ar@main/nunanunongmotiion.mp4"
           preload="auto"
+          autoplay
+          muted
           loop
           playsinline
           crossorigin="anonymous"
@@ -63,24 +65,12 @@
     <script>
       document.addEventListener("DOMContentLoaded", () => {
         const video = document.querySelector("#folkloreVideo");
-        const target = document.querySelector("[mindar-image-target]");
 
-        target.addEventListener("targetFound", () => {
-          console.log("🎯 Marker found!");
-          video.play();
-        });
-
-        target.addEventListener("targetLost", () => {
-          console.log("👋 Marker lost!");
-          video.pause();
-        });
-      });
-
-      // Bắt buộc click để phát video trên mobile
-      window.addEventListener("click", () => {
-        const v = document.querySelector("#folkloreVideo");
-        v.muted = false;
-        v.play().catch(err => console.log("Không thể phát video:", err));
+        // Bắt buộc click để unmute trên mobile
+        window.addEventListener("click", () => {
+          video.muted = false;
+          video.play().catch(err => console.log("Play error:", err));
+        }, { once: true });
       });
     </script>
   </body>
