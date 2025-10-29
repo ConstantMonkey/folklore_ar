@@ -18,7 +18,7 @@
 
   <body>
     <a-scene
-      mindar-image="imageTargetSrc: ./nunanunong.minddata; autoStart: true;"
+      mindar-image="imageTargetSrc: https://raw.githubusercontent.com/ConstantMonkey/folklore_ar/main/nunanunong.minddata; autoStart: true;"
       color-space="sRGB"
       embedded
       renderer="colorManagement: true, physicallyCorrectLights"
@@ -29,11 +29,12 @@
       <a-assets>
         <video
           id="folkloreVideo"
-          src="https://cdn.jsdelivr.net/gh/ConstantMonkey/folklore_ar@main/nunanunongmotiion.mp4"
+          src="https://raw.githubusercontent.com/ConstantMonkey/folklore_ar/main/nunanunongmotiion.mp4"
           preload="auto"
           loop
           playsinline
           crossorigin="anonymous"
+          webkit-playsinline
         ></video>
       </a-assets>
 
@@ -79,4 +80,3 @@
     </script>
   </body>
 </html>
-
