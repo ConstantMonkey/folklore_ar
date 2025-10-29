@@ -18,15 +18,16 @@
         <video
           id="myVideo"
           src="https://cdn.jsdelivr.net/gh/ConstantMonkey/folklore_ar@main/nunanunongmotiion.mp4"
-          autoplay muted loop playsinline crossorigin="anonymous"
+          autoplay loop playsinline crossorigin="anonymous"
         ></video>
       </a-assets>
 
-      <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+      <a-camera position="0 0 0" look-controls="false"></a-camera>
 
       <a-entity mindar-image-target="targetIndex: 0">
-        <a-video
+        <a-box
           src="#myVideo"
+          depth="0.001"
           width="1"
           height="0.56"
           position="0 0 0"
@@ -34,23 +35,25 @@
           visible="false"
           event-set__show="_event: targetFound; visible: true"
           event-set__hide="_event: targetLost; visible: false"
-        ></a-video>
+          material="src: #myVideo; side: double; shader: flat"
+        ></a-box>
       </a-entity>
     </a-scene>
 
     <script>
       document.addEventListener("DOMContentLoaded", () => {
-        const video = document.querySelector("#myVideo");
+        const video = document.getElementById("myVideo");
         const target = document.querySelector("[mindar-image-target]");
+
         target.addEventListener("targetFound", () => {
-          console.log("Target found! Playing video...");
+          console.log("Found! Play video");
           video.play();
         });
-        target.addEventListener("targetLost", () => console.log("Target lost!"));
-        window.addEventListener("click", () => {
-          video.muted = false;
-          video.play();
-        }, { once: true });
+
+        target.addEventListener("targetLost", () => {
+          console.log("Lost! Pause");
+          video.pause();
+        });
       });
     </script>
   </body>
