@@ -43,13 +43,10 @@
         const video = document.querySelector("#myVideo");
         const target = document.querySelector("[mindar-image-target]");
         target.addEventListener("targetFound", () => {
-          console.log("Target found!");
+          console.log("Target found! Playing video...");
           video.play();
         });
-        target.addEventListener("targetLost", () => {
-          console.log("Target lost!");
-          video.pause();
-        });
+        target.addEventListener("targetLost", () => console.log("Target lost!"));
         window.addEventListener("click", () => {
           video.muted = false;
           video.play();
